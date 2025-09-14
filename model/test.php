@@ -2,7 +2,7 @@
 require_once 'dbconn.php';
 function getalltest() {
 $conn = getConnection();
-    $query = "SELECT * FROM  epm";
+    $query = "SELECT * FROM emp";
     $statement = oci_parse($conn, $query);
     oci_execute($statement);
     $planets=[];

@@ -23,7 +23,7 @@ require_once "../controller/testcontroller.php";
       <div class="p-6 text-2xl font-bold text-purple-900">Mall Admin</div>
       <nav class="flex-1 p-4 space-y-2">
         <a class="flex items-center gap-4 p-2 text-purple-900 bg-purple-100 rounded font-semibold" href="#"><i class="fa-solid fa-house"></i>Home</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-store"></i>Shop Management</a>
+  <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="?show_emp=1"><i class="fa-solid fa-store"></i>Shop Management</a>
         <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-file-invoice-dollar"></i>Rent Management</a>
         <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-users"></i>Employee Management</a>
         <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-user-check"></i>Customer Visit Tracking</a>
@@ -72,7 +72,42 @@ require_once "../controller/testcontroller.php";
         </div>
         <img src="image.jpg" alt="Dashboard Illustration" class="w-60 h-60 rounded-xl shadow ml-10 object-contain">
       </section>
-      <!-- Add more management sections and tables as in your screenshots -->
+      <!-- Show EMP table if Shop Management is clicked -->
+      <?php if (isset($_GET['show_emp'])): ?>
+      <section class="bg-white rounded-2xl shadow-md p-8 mb-8">
+        <h2 class="text-xl font-bold mb-6 text-purple-800">Employee Table</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full border text-sm">
+            <thead class="bg-purple-100">
+              <tr>
+                <th class="px-4 py-2 border">EMPNO</th>
+                <th class="px-4 py-2 border">ENAME</th>
+                <th class="px-4 py-2 border">JOB</th>
+                <th class="px-4 py-2 border">MGR</th>
+                <th class="px-4 py-2 border">HIREDATE</th>
+                <th class="px-4 py-2 border">SAL</th>
+                <th class="px-4 py-2 border">COMM</th>
+                <th class="px-4 py-2 border">DEPTNO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($planents as $row): ?>
+                <tr>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['EMPNO']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['ENAME']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['JOB']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['MGR']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['HIREDATE']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['SAL']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['COMM']); ?></td>
+                  <td class="px-4 py-2 border"><?php echo htmlspecialchars($row['DEPTNO']); ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <?php endif; ?>
     </main>
   </div>
 </body>
