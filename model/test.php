@@ -28,4 +28,3 @@ function getAllEmployees() {
     return $rows;
 }
 ?>
-    return $rows;
