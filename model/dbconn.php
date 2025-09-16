@@ -1,6 +1,6 @@
 <?php
 function getConnection() {
-    static $conn; // keep one connection instance alive
+    static $conn;
 
     if (!$conn) {
         $username = "scott";
