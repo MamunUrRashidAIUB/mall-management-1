@@ -18,7 +18,7 @@ function getAllShops() {
 
 function getAllEmployees() {
     $conn = getConnection();
-    $sql = "SELECT EMPNO, ENAME, JOB, MGR, TO_CHAR(HIREDATE,'YYYY-MM-DD') AS HIREDATE, SAL, COMM, DEPTNO FROM emp ORDER BY EMPNO";
+    $sql = "SELECT EMPID, NAME, JOBROLE, SHIFTTIME, ASSIGNEDFLOOR, SHOPID FROM Employee ORDER BY EMPID";
     $stid = oci_parse($conn, $sql);
     oci_execute($stid);
 

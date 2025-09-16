@@ -62,6 +62,8 @@ require_once __DIR__ . '/../controller/testcontroller.php';
     <?php if (isset($_GET['page']) && $_GET['page'] == 'shop'): $shops = fetchShops(); ?>
     <section class="bg-white rounded-2xl shadow-md p-8 mb-8">
       <h2 class="text-xl font-bold mb-6 text-purple-800">Shop Table</h2>
+        <!-- Add Shop Button -->
+        <button onclick="document.getElementById('addShopModal').classList.remove('hidden')" class="mb-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"><i class="fa fa-plus mr-2"></i>Add Shop</button>
       <div class="overflow-x-auto">
         <table class="min-w-full border text-sm">
           <thead class="bg-purple-100">
@@ -71,6 +73,7 @@ require_once __DIR__ . '/../controller/testcontroller.php';
               <th class="px-4 py-2 border">OWNER</th>
               <th class="px-4 py-2 border">TYPE</th>
               <th class="px-4 py-2 border">FLOORNUMBER</th>
+                <th class="px-4 py-2 border">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -81,11 +84,58 @@ require_once __DIR__ . '/../controller/testcontroller.php';
               <td class="px-4 py-2 border"><?= htmlspecialchars($row['OWNER']) ?></td>
               <td class="px-4 py-2 border"><?= htmlspecialchars($row['TYPE']) ?></td>
               <td class="px-4 py-2 border"><?= htmlspecialchars($row['FLOORNUMBER']) ?></td>
+                <td class="px-4 py-2 border">
+                  <button onclick="openEditShopModal('<?= htmlspecialchars($row['SHOPID']) ?>', '<?= htmlspecialchars($row['NAME']) ?>', '<?= htmlspecialchars($row['OWNER']) ?>', '<?= htmlspecialchars($row['TYPE']) ?>', '<?= htmlspecialchars($row['FLOORNUMBER']) ?>')" class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-2"><i class='fa fa-edit'></i></button>
+                  <button onclick="if(confirm('Are you sure you want to delete this shop?')){}" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"><i class='fa fa-trash'></i></button>
+                </td>
             </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
       </div>
+        <!-- Add Shop Modal -->
+        <div id="addShopModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-lg p-8 w-full max-w-md shadow-lg relative">
+            <h3 class="text-lg font-bold mb-4">Add Shop</h3>
+            <form>
+              <input type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Shop Name" required>
+              <input type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Owner" required>
+              <input type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Type" required>
+              <input type="text" class="w-full mb-4 px-3 py-2 border rounded" placeholder="Floor Number" required>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="document.getElementById('addShopModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded">Add</button>
+              </div>
+            </form>
+            <button onclick="document.getElementById('addShopModal').classList.add('hidden')" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <!-- Edit Shop Modal -->
+        <div id="editShopModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-lg p-8 w-full max-w-md shadow-lg relative">
+            <h3 class="text-lg font-bold mb-4">Edit Shop</h3>
+            <form>
+              <input id="editShopName" type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Shop Name" required>
+              <input id="editShopOwner" type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Owner" required>
+              <input id="editShopType" type="text" class="w-full mb-2 px-3 py-2 border rounded" placeholder="Type" required>
+              <input id="editShopFloor" type="text" class="w-full mb-4 px-3 py-2 border rounded" placeholder="Floor Number" required>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="document.getElementById('editShopModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+              </div>
+            </form>
+            <button onclick="document.getElementById('editShopModal').classList.add('hidden')" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <script>
+          function openEditShopModal(shopid, name, owner, type, floor) {
+            document.getElementById('editShopModal').classList.remove('hidden');
+            document.getElementById('editShopName').value = name;
+            document.getElementById('editShopOwner').value = owner;
+            document.getElementById('editShopType').value = type;
+            document.getElementById('editShopFloor').value = floor;
+          }
+        </script>
     </section>
     <?php endif; ?>
 
@@ -97,27 +147,23 @@ require_once __DIR__ . '/../controller/testcontroller.php';
         <table class="min-w-full border text-sm">
           <thead class="bg-purple-100">
             <tr>
-              <th class="px-4 py-2 border">EMPNO</th>
-              <th class="px-4 py-2 border">ENAME</th>
-              <th class="px-4 py-2 border">JOB</th>
-              <th class="px-4 py-2 border">MGR</th>
-              <th class="px-4 py-2 border">HIREDATE</th>
-              <th class="px-4 py-2 border">SAL</th>
-              <th class="px-4 py-2 border">COMM</th>
-              <th class="px-4 py-2 border">DEPTNO</th>
+              <th class="px-4 py-2 border">EMPID</th>
+              <th class="px-4 py-2 border">NAME</th>
+              <th class="px-4 py-2 border">JOBROLE</th>
+              <th class="px-4 py-2 border">SHIFTTIME</th>
+              <th class="px-4 py-2 border">ASSIGNEDFLOOR</th>
+              <th class="px-4 py-2 border">SHOPID</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach ($employees as $row): ?>
             <tr>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['EMPNO']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['ENAME']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['JOB']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['MGR']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['HIREDATE']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['SAL']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['COMM']) ?></td>
-              <td class="px-4 py-2 border"><?= htmlspecialchars($row['DEPTNO']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['EMPID']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['NAME']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['JOBROLE']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['SHIFTTIME']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['ASSIGNEDFLOOR']) ?></td>
+              <td class="px-4 py-2 border"><?= htmlspecialchars($row['SHOPID']) ?></td>
             </tr>
             <?php endforeach; ?>
           </tbody>
