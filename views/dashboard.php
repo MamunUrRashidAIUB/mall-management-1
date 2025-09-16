@@ -22,14 +22,9 @@ require_once "../controller/testcontroller.php";
     <aside class="bg-white w-64 border-r shadow-xl flex flex-col">
       <div class="p-6 text-2xl font-bold text-purple-900">Mall Admin</div>
       <nav class="flex-1 p-4 space-y-2">
-        <a class="flex items-center gap-4 p-2 text-purple-900 bg-purple-100 rounded font-semibold" href="#"><i class="fa-solid fa-house"></i>Home</a>
-  <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="?show_emp=1"><i class="fa-solid fa-store"></i>Shop Management</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-file-invoice-dollar"></i>Rent Management</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-users"></i>Employee Management</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-user-check"></i>Customer Visit Tracking</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-screwdriver-wrench"></i>Maintenance</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-calendar-days"></i>Event Management</a>
-        <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-chart-line"></i>Sales Reporting</a>
+      <a class="flex items-center gap-4 p-2 text-purple-900 bg-purple-100 rounded font-semibold" href="dashboard.php"><i class="fa-solid fa-house"></i>Home</a>
+      <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="dashboard.php?show_shop=1"><i class="fa-solid fa-store"></i>Shop Management</a>
+      <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="dashboard.php?show_emp=1"><i class="fa-solid fa-users"></i>Employee Management</a>
       </nav>
       <div class="p-4 mt-auto border-t">
         <a class="flex items-center gap-4 p-2 hover:bg-gray-100 rounded" href="#"><i class="fa-solid fa-circle-question"></i>Help</a>
