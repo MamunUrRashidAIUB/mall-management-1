@@ -13,11 +13,23 @@
       <h2 class="text-xl font-bold text-purple-900 mb-5" style="font-family:'Comic Sans MS', 'Comic Sans', cursive;">
         Welcome Back!
       </h2>
-      <form>
-        <input type="text" placeholder="Alice@example.com"
-          class="mb-3 w-full p-2 rounded bg-white focus:outline-none placeholder:text-gray-500 border border-gray-200" />
-        <input type="password" placeholder="Password"
-          class="mb-4 w-full p-2 rounded bg-white focus:outline-none placeholder:text-gray-500 border border-gray-200" />
+      <?php
+      session_start();
+      $errors = $_SESSION['login_errors'] ?? [];
+      unset($_SESSION['login_errors']);
+      ?>
+      <?php if (!empty($errors)): ?>
+        <div class="mb-4 p-2 bg-red-200 text-red-800 rounded">
+          <?php foreach ($errors as $error): ?>
+            <div><?= htmlspecialchars($error) ?></div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+      <form method="POST" action="../controller/logincontroller.php">
+        <input type="email" name="email" placeholder="Alice@example.com"
+          class="mb-3 w-full p-2 rounded bg-white focus:outline-none placeholder:text-gray-500 border border-gray-200" required />
+        <input type="password" name="password" placeholder="Password"
+          class="mb-4 w-full p-2 rounded bg-white focus:outline-none placeholder:text-gray-500 border border-gray-200" required />
         <button type="submit"
           class="w-full bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 rounded transition mb-5">
           Sign in

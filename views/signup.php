@@ -9,12 +9,24 @@
   <div class="bg-blue-100 rounded-xl p-8 max-w-3xl w-full mx-auto flex justify-between items-center">
     <!-- Left: Registration Form -->
     <div class="w-1/2 pr-6">
-      <form>
-        <input type="text" placeholder="Enter your full name" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" />
-        <input type="email" placeholder="Enter your email" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" />
-        <input type="text" placeholder="Enter your phone number" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" />
-        <input type="password" placeholder="Enter password" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" />
-        <input type="password" placeholder="Confirm Password" class="mb-4 w-full p-2 rounded bg-white focus:outline-none" />
+      <?php
+      session_start();
+      $errors = $_SESSION['signup_errors'] ?? [];
+      unset($_SESSION['signup_errors']);
+      ?>
+      <?php if (!empty($errors)): ?>
+        <div class="mb-4 p-2 bg-red-200 text-red-800 rounded">
+          <?php foreach ($errors as $error): ?>
+            <div><?= htmlspecialchars($error) ?></div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+      <form method="POST" action="../controller/signupcontroller.php">
+  <input type="text" name="name" placeholder="Enter your full name" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" required />
+  <input type="email" name="email" placeholder="Enter your email" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" required />
+  <input type="text" name="phone" placeholder="Enter your phone number" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" required />
+  <input type="password" name="password" placeholder="Enter password" class="mb-3 w-full p-2 rounded bg-white focus:outline-none" required />
+  <input type="password" name="confirm" placeholder="Confirm Password" class="mb-4 w-full p-2 rounded bg-white focus:outline-none" required />
         <button class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-full py-2 rounded text-xl mb-2 transition">
           Register
         </button>
